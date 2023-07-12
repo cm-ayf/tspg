@@ -10,10 +10,16 @@ export async function GET({ params, url }: RequestEvent) {
 		});
 		if (!data.files) throw new Error('No files found');
 
-		return Response.redirect(fromFiles(data.files), 301);
+		return new Response(undefined, {
+			status: 301,
+			headers: {
+				Location: fromFiles(data.files).toString(),
+				'Cache-Control': 'public, max-age=604800, immutable'
+			}
+		});
 	} catch (e) {
 		const url404 = new URL('/404', url);
 		if (e instanceof Error) url404.searchParams.set('message', e.message);
-		return Response.redirect(url404, 301);
+		return Response.redirect(url404, 302);
 	}
 }
