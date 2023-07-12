@@ -1,4 +1,3 @@
-import type { Config } from '@sveltejs/adapter-vercel';
 import { fromFiles } from '$lib/server/convert';
 import { octokit } from '$lib/server/octokit';
 import type { RequestEvent } from './$types';
@@ -18,5 +17,3 @@ export async function GET({ params, url }: RequestEvent) {
 		return Response.redirect(url404, 301);
 	}
 }
-
-export const config: Config = { runtime: 'edge' };

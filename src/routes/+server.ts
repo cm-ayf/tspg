@@ -1,7 +1,6 @@
 import { isValidURL } from '$lib/pattern';
 import { toFiles, type ToFiles } from '$lib/server/convert';
 import { octokit } from '$lib/server/octokit';
-import type { Config } from '@sveltejs/adapter-vercel';
 import { json, type RequestEvent } from '@sveltejs/kit';
 
 async function resolveURL(request: Request) {
@@ -52,5 +51,3 @@ export async function POST({ request }: RequestEvent) {
 		return json({ message: 'Failed to create gist' }, { status: 500 });
 	}
 }
-
-export const config: Config = { runtime: 'edge' };
