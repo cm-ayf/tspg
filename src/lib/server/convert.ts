@@ -1,5 +1,9 @@
 import lz from 'lz-string';
 
+function filename(url: URL) {
+	return url.searchParams.get('jsx') === '0' ? 'index.ts' : 'index.tsx';
+}
+
 export interface ToFiles {
 	[filename: string]: { content: string };
 }
@@ -7,13 +11,10 @@ export interface ToFiles {
 export function toFiles(url: URL): ToFiles {
 	const files: ToFiles = {};
 
-	const playground = lz.decompressFromEncodedURIComponent(url.hash.slice(6));
-	const filename = url.searchParams.get('jsx') === '0' ? 'index.ts' : 'index.tsx';
-	files[filename] = { content: playground };
-
-	if (url.search) {
-		files.options = { content: url.search };
-	}
+	files[filename(url)] = {
+		content: lz.decompressFromEncodedURIComponent(url.hash.slice(6))
+	};
+	if (url.search) files.options = { content: url.search };
 
 	return files;
 }
@@ -27,8 +28,7 @@ export function fromFiles(files: FromFiles): URL {
 	const options = files?.['options'];
 	if (options?.content) url.search = options.content;
 
-	const filename = url.searchParams.get('jsx') === '0' ? 'index.ts' : 'index.tsx';
-	const playground = files?.[filename];
+	const playground = files?.[filename(url)];
 	if (typeof playground?.content !== 'string') throw new Error('No playground found');
 	url.hash = '#code/' + lz.compressToEncodedURIComponent(playground.content);
 
