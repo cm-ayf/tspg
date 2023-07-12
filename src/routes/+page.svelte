@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { isValidURL, pattern } from '$lib/pattern';
+	import packageJson from '$lib/../../package.json';
 
 	interface SuccessResult {
 		success: true;
@@ -47,7 +48,12 @@
 	}
 </script>
 
-<h1>Short URL Generator for TypeScript Playground</h1>
+<h1>{packageJson.description}</h1>
+
+<p>
+	<a href={packageJson.repository.url}>GitHub</a> | Report issues
+	<a href={packageJson.bugs.url}>here</a>
+</p>
 
 <form>
 	<input
