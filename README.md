@@ -1,38 +1,22 @@
-# create-svelte
+# tspg
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Short URL Generator for TypeScript Playground. The code is stored in [GitHub Gist](https://gist.github.com/).
 
-## Creating a project
+## Usage
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Web App ([tspg.vercel.app](https://tspg.vercel.app))
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Access and paste the URL.
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### API
+
+`POST /` an `application/json` with `url` field. You will get an `application/json` response with `id` and `url` field.
+
+```sh
+$ curl -X POST -H "Content-Type: application/json" -d '{"url":"https://www.typescriptlang.org/play?target=99&jsx=0#code/IYZwngdgxgBAZgV2gFwJYHsIygJwKbDJ4DKAFujsgKo4A2AFAnQFwwjI6oQDmAlDAG8AUDFHZM7GPhAAHCXhgBeGMADuwVMnh5kUUvQBEpZMhkhmAegvJZ3AHQA3PDih5ad4DJkWDAGkEiYkGkBAAmzuaCMAYAwphEEMgAtAAqYDJ4BqwGnjK0qFCEGBAWAFYgmAYwAL6+gUGiAEbooWCsAFLEAPIAcnbsnDyocGD0AjBMtDW8dUHVvADc9eIQkuWYSirqmlJ4svJ26xD0i8v4yExYR3aTS9VCQA"}' https://tspg.vercel.app/
+{"id":"577fa93186ab04d7c38e8e60fca9906e","url":"https://tspg.vercel.app/577fa93186ab04d7c38e8e60fca9906e"}
 ```
 
-## Developing
+# License
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+[MIT License](LICENSE)
