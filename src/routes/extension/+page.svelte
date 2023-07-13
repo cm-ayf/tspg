@@ -66,7 +66,7 @@
 		<p>{error}</p>
 	{/if}
 
-	<p>{url}</p>
+	<p>URL: {url}</p>
 </div>
 
 <style>
