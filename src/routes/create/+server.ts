@@ -4,20 +4,28 @@ import { octokit } from '$lib/server/octokit';
 import { json, type RequestEvent } from '@sveltejs/kit';
 
 async function resolveURL(request: Request) {
-	if (request.headers.get('Content-Type') !== 'application/json') {
-		throw new Error("Expected 'Content-Type' header to be 'application/json'");
+	switch (request.headers.get('Content-Type')) {
+		case 'application/json': {
+			const json = await request.json();
+			if (typeof json.url !== 'string') {
+				throw new Error("Expected JSON body with 'url' string property");
+			}
+			return new URL(json.url);
+		}
+		case 'application/x-www-form-urlencoded': {
+			const body = await request.text();
+			const params = new URLSearchParams(body);
+			const param = params.get('url');
+			if (typeof param !== 'string') {
+				throw new Error("Expected 'url' form field");
+			}
+			return new URL(param);
+		}
+		default:
+			throw new Error(
+				"Expected 'Content-Type' header to be 'application/json' or 'application/x-www-form-urlencoded'"
+			);
 	}
-	const json = await request.json().catch(() => {
-		throw new Error('Expected JSON body, but received invalid JSON');
-	});
-	if (typeof json.url !== 'string') {
-		throw new Error("Expected JSON body with 'url' string property");
-	}
-	const url = new URL(json.url);
-	if (!isValidURL(url)) {
-		throw new Error("Expected 'url' to match TypeScript playground URL pattern");
-	}
-	return url;
 }
 
 export async function POST({ request }: RequestEvent) {
@@ -25,6 +33,9 @@ export async function POST({ request }: RequestEvent) {
 
 	try {
 		const url = await resolveURL(request);
+		if (!isValidURL(url)) {
+			throw new Error("Expected 'url' to match TypeScript playground URL pattern");
+		}
 		files = toFiles(url);
 	} catch (e) {
 		const message = e instanceof Error ? e.message : 'Unknown error';
