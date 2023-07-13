@@ -21,7 +21,7 @@
 	async function submit() {
 		try {
 			loading = true;
-			const response = await fetch('/', {
+			const response = await fetch('/create', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ url })
