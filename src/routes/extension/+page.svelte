@@ -7,7 +7,7 @@
 		let value: T | null = null;
 		return () => (value ??= init());
 	}
-	const browser = memo(() => import('webextension-polyfill'));
+	const browser = memo(() => import('webextension-polyfill').then((x) => x.default));
 	onMount(browser);
 
 	const createLink = async () => {
