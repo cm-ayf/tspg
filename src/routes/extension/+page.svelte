@@ -13,18 +13,18 @@
 			},
 			body: JSON.stringify({ url })
 		});
+		const data = await res.json();
 
 		if (res.status !== 201) {
 			text = 'Request failed';
+			error = data.message;
 			return;
 		}
 
-		const { link } = await res.json();
-
-		if (link) {
+		if (data.link) {
 			text = 'Copying...';
 			navigator.clipboard
-				.writeText(link)
+				.writeText(data.link)
 				.then(() => {
 					text = 'Link copied';
 				})
@@ -38,6 +38,7 @@
 	let url = '';
 	let disabled = false;
 	let text = 'Shorten URL';
+	let error: string | null = null;
 
 	onMount(async () => {
 		if (browser) {
@@ -59,7 +60,11 @@
 </script>
 
 <div class="container">
-	<button {disabled} on:click={createLink}>{text}</button>
+	{#if !error}
+		<button {disabled} on:click={createLink}>{text}</button>
+	{:else}
+		<p>{error}</p>
+	{/if}
 </div>
 
 <style>
