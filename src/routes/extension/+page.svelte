@@ -1,10 +1,17 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
-
 	const createLink = async () => {
 		disabled = true;
 		text = 'Shortening...';
+
+		const { tabs } = await import('webextension-polyfill');
+		const query = await tabs.query({ active: true, currentWindow: true });
+		const tab = query[0];
+
+		if (tab && tab.url) {
+			url = tab.url;
+		} else {
+			url = 'failed to get url';
+		}
 
 		const res = await fetch('/create', {
 			method: 'POST',
@@ -39,24 +46,6 @@
 	let disabled = false;
 	let text = 'Shorten URL';
 	let error: string | null = null;
-
-	onMount(async () => {
-		if (browser) {
-			const { tabs, webNavigation } = await import('webextension-polyfill');
-			const query = await tabs.query({ active: true, currentWindow: true });
-			const tab = query[0];
-
-			if (tab && tab.url) {
-				url = tab.url;
-			}
-
-			webNavigation.onHistoryStateUpdated.addListener((details) => {
-				if (details.tabId === tab.id && details.url) {
-					url = details.url;
-				}
-			});
-		}
-	});
 </script>
 
 <div class="container">
