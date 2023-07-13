@@ -65,6 +65,8 @@
 	{:else}
 		<p>{error}</p>
 	{/if}
+
+	<p>{url}</p>
 </div>
 
 <style>
