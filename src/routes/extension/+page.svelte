@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { tabs } from 'webextension-polyfill';
+
 	const createLink = async () => {
 		disabled = true;
 		text = 'Shortening...';
 
-		const { tabs } = await import('webextension-polyfill');
 		const query = await tabs.query({ active: true, currentWindow: true });
 		const tab = query[0];
 
