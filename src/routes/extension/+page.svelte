@@ -14,7 +14,7 @@
 			body: JSON.stringify({ url })
 		});
 
-		if (res.status !== 200) {
+		if (res.status !== 201) {
 			text = 'Request failed';
 			return;
 		}
