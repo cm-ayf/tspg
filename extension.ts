@@ -59,7 +59,8 @@ export function extension(): Plugin {
 					await Promise.all([
 						writeFile(join(destination, `${NAME}.html`), processed),
 						writeFile(join(destination, `${NAME}.js`), script),
-						cp(join(output, 'client'), destination, { recursive: true })
+						cp(join(output, 'client'), destination, { recursive: true }),
+						cp(join(config.root, 'manifest.json'), join(destination, 'manifest.json'))
 					]);
 				} else {
 					await Promise.all([
