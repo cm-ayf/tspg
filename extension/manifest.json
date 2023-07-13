@@ -2,7 +2,7 @@
 	"browser_action": {
 		"browser_style": true,
 		"default_title": "tspg",
-		"default_popup": "https://extension.tspg.pages.dev/extension",
+		"default_popup": "https://tspg.cc/extension",
 		"default_icon": {}
 	},
 	"description": "TypeScript Playground URL shortening browser extension",
