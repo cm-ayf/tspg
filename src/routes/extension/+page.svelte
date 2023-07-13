@@ -1,25 +1,34 @@
 <script lang="ts">
-	import { tabs } from 'webextension-polyfill';
+	import { onMount } from 'svelte';
+
+	const endpoint = '/create';
+
+	function memo<T>(init: () => T): () => T {
+		let value: T | null = null;
+		return () => (value ??= init());
+	}
+	const browser = memo(() => import('webextension-polyfill'));
+	onMount(browser);
 
 	const createLink = async () => {
 		disabled = true;
 		text = 'Shortening...';
 
+		const { tabs } = await browser();
 		const query = await tabs.query({ active: true, currentWindow: true });
 		const tab = query[0];
 
-		if (tab && tab.url) {
-			url = tab.url;
-		} else {
-			url = 'failed to get url';
+		if (!tab.url) {
+			error = 'Failed to get URL';
+			return;
 		}
 
-		const res = await fetch('/create', {
+		const res = await fetch(endpoint, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ url })
+			body: JSON.stringify({ url: tab.url })
 		});
 		const data = await res.json();
 
@@ -29,10 +38,10 @@
 			return;
 		}
 
-		if (data.link) {
+		if (data.url) {
 			text = 'Copying...';
 			navigator.clipboard
-				.writeText(data.link)
+				.writeText(data.url)
 				.then(() => {
 					text = 'Link copied';
 				})
@@ -43,7 +52,6 @@
 			text = 'Failed to shorten';
 		}
 	};
-	let url = '';
 	let disabled = false;
 	let text = 'Shorten URL';
 	let error: string | null = null;
@@ -55,8 +63,6 @@
 	{:else}
 		<p>{error}</p>
 	{/if}
-
-	<p>URL: {url}</p>
 </div>
 
 <style>
