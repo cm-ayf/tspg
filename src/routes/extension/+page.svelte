@@ -6,7 +6,7 @@
 		disabled = true;
 		text = 'Shortening...';
 
-		const res = await fetch('https://tspg.cc/create', {
+		const res = await fetch('/create', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
