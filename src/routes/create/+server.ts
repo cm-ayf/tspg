@@ -34,7 +34,10 @@ export async function POST({ request }: RequestEvent) {
 	try {
 		const { data } = await octokit.request('POST /gists', { files });
 		if (!data.id) throw new Error();
-		return json({ id: data.id, url: new URL(`/${data.id}`, request.url) }, { status: 201 });
+		return json(
+			{ id: data.id, url: new URL(`/${data.id}`, request.url) },
+			{ status: 201, headers: { 'Access-Control-Allow-Origin': '*' } }
+		);
 	} catch (e) {
 		console.error(e);
 		return json({ message: 'Failed to create gist' }, { status: 500 });
