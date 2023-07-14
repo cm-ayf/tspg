@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json.schemastore.org/chrome-manifest",
+	"manifest_version": 3,
+	"name": "tspg",
+	"version": "0.0.1",
+	"description": "Short URL Generator for TypeScript Playground",
+	"homepage_url": "https://github.com/cm-ayf/tspg",
+	"permissions": ["tabs", "webNavigation"],
+	"action": {
+		"default_popup": "extension.html"
+	},
+	"commands": {
+		"save": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+S"
+			},
+			"description": "Generate Short URL"
+		}
+	}
+}

@@ -54,3 +54,14 @@ export async function POST({ request }: RequestEvent) {
 		return json({ message: 'Failed to create gist' }, { status: 500 });
 	}
 }
+
+export async function OPTIONS() {
+	return new Response(undefined, {
+		status: 204,
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'POST',
+			'Access-Control-Allow-Headers': 'Content-Type'
+		}
+	});
+}
