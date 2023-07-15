@@ -1,6 +1,7 @@
 {
-	"name": "tspg",
+	"name": "tspg.cc",
 	"version": "0.1.0",
+	"homepage": "https://tspg.cc/",
 	"description": "Short URL Generator for TypeScript Playground",
 	"repository": {
 		"type": "git",
