@@ -1,5 +1,4 @@
 {
-	"$schema": "https://json.schemastore.org/chrome-manifest",
 	"manifest_version": 3,
 	"name": "tspg",
 	"version": "0.0.1",
