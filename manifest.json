@@ -3,7 +3,7 @@
 	"name": "tspg",
 	"version": "0.1.0",
 	"description": "Short URL Generator for TypeScript Playground",
-	"homepage_url": "https://github.com/cm-ayf/tspg",
+	"homepage_url": "https://tspg.cc/",
 	"permissions": ["tabs", "webNavigation"],
 	"action": {
 		"default_popup": "extension.html"

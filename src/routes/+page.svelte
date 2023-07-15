@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { isValidURL, pattern } from '$lib/pattern';
-	import { version, description, repository, bugs } from '../../package.json';
+	import { name, version, description, homepage, repository, bugs } from '../../package.json';
 
 	interface SuccessResult {
 		success: true;
@@ -51,6 +51,18 @@
 	const bugsUrl = bugs.url;
 	const releaseUrl = `${repositoryUrl}/releases/download/v${version}/tspg.zip`;
 </script>
+
+<svelte:head>
+	<meta name="description" content={description} />
+	<meta property="og:title" content={name} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={homepage} />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content={name} />
+	<meta name="twitter:card" content="summary" />
+
+	<title>{name}</title>
+</svelte:head>
 
 <h1>{description}</h1>
 
