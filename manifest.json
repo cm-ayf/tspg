@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "tspg",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Short URL Generator for TypeScript Playground",
 	"homepage_url": "https://tspg.cc/",
 	"permissions": ["tabs", "webNavigation"],
