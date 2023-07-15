@@ -1,0 +1,27 @@
+name: Package and Release Browser Extension
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      EXTENSION_ORIGIN: 'https://tspg.cc'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm run package
+      - uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: .svelte-kit/extension/dist/tspg.zip
