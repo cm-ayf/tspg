@@ -3,5 +3,10 @@ import { extension } from './extension';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [sveltekit(), extension()]
+	plugins: [sveltekit(), extension()],
+	server: {
+		fs: {
+			allow: ['package.json']
+		}
+	}
 });

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { isValidURL, pattern } from '$lib/pattern';
-	import packageJson from '$lib/../../package.json';
+	import { description, repository, bugs } from '../../package.json';
 
 	interface SuccessResult {
 		success: true;
@@ -48,11 +48,11 @@
 	}
 </script>
 
-<h1>{packageJson.description}</h1>
+<h1>{description}</h1>
 
 <p>
-	<a href={packageJson.repository.url}>GitHub</a> | Report issues
-	<a href={packageJson.bugs.url}>here</a>
+	<a href={repository.url}>GitHub</a> | Report issues
+	<a href={bugs.url}>here</a>
 </p>
 
 <form>
