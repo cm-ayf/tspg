@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { isValidURL, pattern } from '$lib/pattern';
-	import { description, repository, bugs } from '../../package.json';
+	import { version, description, repository, bugs } from '../../package.json';
 
 	interface SuccessResult {
 		success: true;
@@ -46,13 +46,18 @@
 			result = { success: true, url, copied: true };
 		};
 	}
+
+	const repositoryUrl = repository.url.replace(/\.git$/, '');
+	const bugsUrl = bugs.url;
+	const releaseUrl = `${repositoryUrl}/releases/download/v${version}/tspg.zip`;
 </script>
 
 <h1>{description}</h1>
 
 <p>
-	<a href={repository.url}>GitHub</a> | Report issues
-	<a href={bugs.url}>here</a>
+	<a href={repositoryUrl}>GitHub</a> |
+	<a href={bugsUrl}>Report issues</a> |
+	<a href={releaseUrl}>Download Extension</a>
 </p>
 
 <form>
