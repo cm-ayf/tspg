@@ -23,4 +23,5 @@ jobs:
       - run: npm run package
       - uses: softprops/action-gh-release@v1
         with:
+          draft: true
           files: .svelte-kit/extension/dist/tspg.zip
