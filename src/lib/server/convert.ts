@@ -11,8 +11,17 @@ export interface ToFiles {
 export function toFiles(url: URL): ToFiles {
 	const files: ToFiles = {};
 
+	const sliced = url.hash.slice(6);
+
+	let decompressed: string;
+	try {
+		decompressed = lz.decompressFromEncodedURIComponent(sliced);
+	} catch {
+		throw new Error("Failed to decompress EncodedURIComponent");
+	}
+
 	files[filename(url)] = {
-		content: lz.decompressFromEncodedURIComponent(url.hash.slice(6))
+		content: decompressed
 	};
 	if (url.search) files.options = { content: url.search };
 
