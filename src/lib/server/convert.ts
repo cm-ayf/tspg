@@ -17,7 +17,7 @@ export function toFiles(url: URL): ToFiles {
 	try {
 		decompressed = lz.decompressFromEncodedURIComponent(sliced);
 	} catch {
-		throw new Error("Failed to decompress EncodedURIComponent");
+		throw new Error('Failed to decompress EncodedURIComponent');
 	}
 
 	files[filename(url)] = {
